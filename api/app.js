@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+const { conn }  = require('./models/index');
 
 var app = express();
 
@@ -36,6 +37,15 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+conn.sync({
+  force: true,
+}).then(() => {
+  console.log('DB conectada');
+  server.listen(PORT, () => {
+    console.log(`Servidor escuchando en el puerto ${PORT}`);
+  });
 });
 
 module.exports = app;
