@@ -2,14 +2,26 @@ const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const {User,Operation} = require("../models/index")
-//const cont = bcrypt.hashSync(req.body.contrasenia,10);
+const {User} = require("../models/index")
 
-router.post('/signup', function (req,res) {
-  
+router.post('/signup', async function (req,res) {
+  const user = await User.findOne({where:{mail:req.body.mail}})
+  if(user){
+    return res.json({err:"El mail ya se encuentra registrado"})
+  }else{
+    const password = bcrypt.hashSync(req.body.password,10);
+    const user = await User.create({name:req.body.name,mail:req.body.mail,password})
+
+    const token = jwt.sign({ user }, process.env.KEY,{expiresIn:"30 days"});
+
+    return res.json({
+        result:{id:user.id,name:user.name},
+        token: token
+    });
+  }
 })
 
-router.post('/login', function(req, res) {
+router.post('/login', async function(req, res) {
   const user = await User.findOne({where:{name:req.body.mail}})
   if(user===null){
     res.json({err:"El usuario es inexistente"})
