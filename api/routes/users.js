@@ -1,5 +1,4 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router()
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const {User} = require("../models/index")
@@ -22,7 +21,7 @@ router.post('/signup', async function (req,res) {
 })
 
 router.post('/login', async function(req, res) {
-  const user = await User.findOne({where:{name:req.body.mail}})
+  const user = await User.findOne({where:{mail:req.body.mail}})
   if(user===null){
     res.json({err:"El usuario es inexistente"})
   }else{

@@ -30,7 +30,6 @@ app.use((_req, res, next) => {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -49,12 +48,12 @@ app.use(function(err, req, res, next) {
 });
 
 conn.sync({
-  force: true,
+  force: false,
 }).then(() => {
   console.log('DB conectada');
-  server.listen(PORT, () => {
-    console.log(`Servidor escuchando en el puerto ${PORT}`);
-  });
-});
+})
+  .catch(err=>{
+    console.log(err)
+  })
 
 module.exports = app;

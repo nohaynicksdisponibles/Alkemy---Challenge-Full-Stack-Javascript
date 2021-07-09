@@ -4,7 +4,7 @@ const middleWareJsonToken = require("../utils/jwt")
 
 server.use(middleWareJsonToken)
 
-server.post('/create',function (req,res){
+server.post('/create', async function (req,res){
     if(req.body.amount==null || req.body.amount==undefined){
         return res.json({err:'El monto no puede ser vacío'})
     }
@@ -44,12 +44,20 @@ server.post('/create',function (req,res){
     op.addCategory(cat)
 })
 
-server.put('/update',function (req,res){
+server.put('/update', async function (req,res){
     
 })
 
-server.delete('/delete',function (req,res){
-    
+server.delete('/delete', async function(req,res){
+    // validar del mismo usuario
+    const user = await User.findOne({where:{id:req.body.id},include: Operation})
+    return res.json(user);
+    const affectedRows = await Operation.destroy({where:{id:req.body.idOp}})
+    if(affectedRows==0){
+        return res.json({
+            err: "No existe el id"
+        })
+    }
 })
 
 server.get('/operaciones', async function(req,res){

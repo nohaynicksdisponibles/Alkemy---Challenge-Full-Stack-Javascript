@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-export function middleWareJsonToken(req,res,next){
+function middleWareJsonToken(req,res,next){
     const token = req.headers['access-token'];
  
     if (token) {
@@ -18,3 +18,5 @@ export function middleWareJsonToken(req,res,next){
       });
     }
 }
+
+module.exports=middleWareJsonToken
