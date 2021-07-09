@@ -12,10 +12,8 @@ const Category = CategoriesFactory(sequelize);
 const Operation = OperationFactory(sequelize);
 const User = UserFactory(sequelize);
 
-User.belongsToMany(Operation, { through: 'user_operation' });
-Operation.belongsToMany(User, { through: 'user_operation' });
-Operation.hasMany(Category, {});
-Category.belongsTo(Operation);
+User.hasMany(Operation);
+Category.hasMany(Operation);
 
 module.exports = {
   conn: sequelize,
