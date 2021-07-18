@@ -109,4 +109,12 @@ server.get('/', async function(req,res){
     }
 })
 
+server.get("/categories", async function(req, res) {
+    const categories = await Category.findAll()
+
+    res.json({
+        categories
+    })
+})
+
 module.exports = server;

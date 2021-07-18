@@ -2,7 +2,7 @@ import swal from 'sweetalert';
 import logo from '../public/logo.png'
 
 function Signup(){
-    if(window.localStorage.getItem("AlkemyToken")) return window.location.replace(`${process.env.REACT_APP_BASE_URL}/`)
+    if(window.localStorage.getItem("AlkemyToken")) return window.location.replace(`/`)
 
     function send(){
         let mail = document.getElementById("mail").value
@@ -25,7 +25,7 @@ function Signup(){
             if(res.hasOwnProperty("err")) return swal("Oops!", res.err, "error");
 
             window.localStorage.setItem("AlkemyToken",res.token)
-            window.location.replace(`${process.env.REACT_APP_BASE_URL}/`)
+            window.location.replace(`${process.env.REACT_APP_BASE_URL_FRONT}/`)
           })
           .catch(err=>{
               return swal("Oops!", "Something went wrong!", "error");

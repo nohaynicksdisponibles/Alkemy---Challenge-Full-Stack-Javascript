@@ -17,13 +17,17 @@ function Login(){
             body:JSON.stringify({
                 mail,
                 password
-            })
+            }),
+            headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+            }
         }).then(res=>res.json())
           .then(res=>{
             if(res.hasOwnProperty("err")) return swal("Oops!", res.err, "error");
 
             window.localStorage.setItem("AlkemyToken",res.token)
-            window.location.replace(`${process.env.REACT_APP_BASE_URL}/`)
+            window.location.replace(`/`)
           })
           .catch(err=>{
               return swal("Oops!", "Something went wrong!", "error");
