@@ -16,6 +16,9 @@ module.exports = (sequelize) => {
     operation: {
       type: DataTypes.STRING,
     },
+    concept: {
+      type: DataTypes.STRING,
+    },
   }, { timestamps: false });
   return model;
 };
