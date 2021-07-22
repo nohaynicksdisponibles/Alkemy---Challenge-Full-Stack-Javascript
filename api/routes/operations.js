@@ -91,7 +91,9 @@ server.get('/', async function(req,res){
             where:{
                 categoryId: cat.id,
                 userId: req.body.decoded.user.id
-            }
+            },
+            limit:10,
+            order:[["id","DESC"]]
         })
         
         if(ops==null){
@@ -101,7 +103,7 @@ server.get('/', async function(req,res){
         return res.json({operations:ops})
     }
 
-    const ops = await Operation.findAll({where:{userId:req.body.decoded.user.id}})
+    const ops = await Operation.findAll({where:{userId:req.body.decoded.user.id},limit:10,order:[["id","DESC"]]})
     if(ops===null){
         return res.json({err:"No se encontraron operaciones"})
     }else{
@@ -115,6 +117,16 @@ server.get("/categories", async function(req, res) {
     res.json({
         categories
     })
+})
+
+server.get("/total", async function(req, res) {
+    const ops = await Operation.findAll({where:{userId:req.body.decoded.user.id}})
+    
+    if(ops===null){
+        return res.json({err:"No se encontraron operaciones"})
+    }else{
+        return res.json({operations:ops})
+    }
 })
 
 module.exports = server;
