@@ -8,7 +8,7 @@ require('dotenv').config()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-const { conn }  = require('./models/index');
+const { conn, Category }  = require('./models/index');
 
 var app = express();
 
@@ -50,6 +50,16 @@ app.use(function(err, req, res, next) {
 conn.sync({
   force: false,
 }).then(() => {
+  /*
+  Category.create({name:"compras"})
+  Category.create({name:"entretenimiento"})
+  Category.create({name:"restaurantes y bares"})
+  Category.create({name:"salud y deporte"})
+  Category.create({name:"sin categoria"})
+  Category.create({name:"servicios"})
+  Category.create({name:"supermercado"})
+  Category.create({name:"transporte"})
+  Category.create({name:"vacaciones"})*/
   console.log('DB conectada');
 })
   .catch(err=>{

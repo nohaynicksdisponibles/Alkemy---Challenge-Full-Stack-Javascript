@@ -118,75 +118,7 @@ function Balance(){
                 // seteo el balance
                 setearBalance()
                 // creo la lista de operaciones
-                let arr = res.operations.map(element=>{
-                    let name
-
-                    for(let i=0;i<categories.length;i++){
-                        if(categories[i].id===element.categoryId){
-                            name=categories[i].name
-                            break;
-                        }
-                    }
-
-                    let fecha = new Date(Date.parse(element.date))
-
-                    return(
-                        <div key={`${element.id}-op`}>
-                            <div onClick={function(e){
-                                //cierro los demas accordions
-                                idOp.current=element.id
-
-                                let arr = document.getElementsByClassName("accordion")
-
-                                for(let i=0;i<arr.length;i++){
-                        
-                                    if(!arr[i].classList.contains(idOp.current)){
-                                        
-                                        if(arr[i].classList.contains("panelActiveRed") || arr[i].classList.contains("panelActiveGreen")){
-                                            arr[i].click()
-                                        } 
-                                    }          
-                                }
-
-                                let a = e.currentTarget
-                                if(a.classList.contains("bg-red-400")){
-                                    a.classList.toggle("panelActiveRed");
-                                }else{
-                                    a.classList.toggle("panelActiveGreen");
-                                }
-                        
-                                var panel = a.nextElementSibling;
-                                if (panel.style.maxHeight) {
-                                panel.style.maxHeight = null;
-                                } else {// panel.scrollHeight + "px";
-                                panel.style.maxHeight = "100px"
-                                }
-
-                                if(!arrUptadatedRef.current.includes(element.id)){
-                                    operationRef.current=element.operation
-                                    amountRef.current=element.amount
-                                }
-                                
-                    }} className={`accordion ${element.operation==="egreso"? "bg-red-400 hover:bg-red-500": "bg-green-300 hover:bg-green-400 active:bg-green-400"} text-white flex flex-row ${element.id}`}>
-                                <span className="flex flex-col">
-                                    <span>{element.operation}</span>
-                                    <span>{name}</span>
-                                </span>
-                                <span id={`${element.id}-concept`} className={`flex-1 text-center`}>
-                                    {element.concept}
-                                </span>
-                                <span className="flex flex-col">
-                                    <span id={`${element.id}-amount`}>{"$"+element.amount}</span>
-                                    <span>{fecha.getDate()+"/"+(parseInt(fecha.getMonth())+1)+"/"+fecha.getFullYear()}</span>
-                                </span>
-                            </div>
-                            <div className="panel flex justify-center bg-gray-50">
-                                <button className="px-4 py-2 my-2 mx-2 border-2 border-purple-500 rounded-lg text-purple-500" onClick={()=>setModalIsOpen(true)}>Editar</button>
-                                <button className="px-4 py-2 my-2 mx-2 bg-red-500 rounded-lg text-white" onClick={()=>borrarElemento(element.id)}>Borrar</button>
-                            </div>
-                        </div>
-                    )
-                })
+                let arr = res.operations.map(element=>crearOp(element,categories))
                 setArrOperaciones(arr)
                 arrOperacionesRef.current=arr
             })
