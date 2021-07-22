@@ -7,7 +7,7 @@ Se utiliza jwt para protección de rutas, bcrypt para el encriptado, Sequelize c
 <img src="https://bl3302files.storage.live.com/y4mh_CL1YDis-3-hhhDqX8oUDWNSNFhTl5HRzYdxxNKjP-y2fpFH5Cjf55Hbq9m_z3vrXivRuUmaG4LRv0f3wPjA34o22eTaFKG1h1Rz02chpEL-ZLQqtgg24DY1J7QPAWPj7M76-IHCYJNjn329qC8XtVLmipyC9bntCwSmyzWpCQHzJVVeUHF3zikxhl9zg5I?width=1358&height=569&cropmode=none"/>
 (screenshot de pantalla login)
 
-Para que la app funcione se debe crear un archivo .env tanto en la carpeta api(backend) como en client(frontend). En el .env de back se deben crear las siguientes variables con sus respectivos valores segun lo requiera el usario
+Para que la app funcione se debe crear un archivo .env tanto en la carpeta api(backend) como en client(frontend). En el .env de back se deben crear las siguientes variables con sus respectivos valores segun lo requiera el usario. El backend fue creado con express generator y el front con create-react-app, se debe hacer npm install tanto en front como en back y para correr los servidores npm start.
 
 dbUser=postgres
 dbPassword=postgres
